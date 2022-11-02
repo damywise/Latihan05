@@ -15,13 +15,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->string('username', 100);
-            $table->string('address', 1000);
-            $table->string('phoneNumber', 20);
-            $table->date('birthdate')->nullable();
-
-            $table->renameColumn('name', 'fullName');
-            $table->string('email')->nullable()->change();
+            $table->string('religion', 20);
+            $table->tinyInteger('gender');
         });
     }
 
