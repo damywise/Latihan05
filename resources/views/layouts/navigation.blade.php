@@ -21,6 +21,12 @@
                     <x-nav-link :href="route('halamanbaru')" :active="request()->routeIs('halamanbaru')">
                         {{ __('Halaman Baru') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('user')" :active="request()->routeIs('user')">
+                        {{ __('User') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('koleksi')" :active="request()->routeIs('koleksi')">
+                        {{ __('Koleksi') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -77,8 +83,8 @@
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                <div class="font-medium text-base text-gray-800">{{ Auth::user()->fullName }}</div>
+                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->username }}</div>
             </div>
 
             <div class="mt-3 space-y-1">

@@ -1,4 +1,4 @@
-{{-- @include('layouts.navigation') --}}
+@include('layouts.navigation')
 <x-guest-layout>
 
     <x-auth-card>
