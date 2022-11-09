@@ -7,31 +7,46 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
 {
-    public function index() {
-        $users = User::all();
-        return view('user.daftarPengguna')->with('users', $users);
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = User::get();
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->editColumn('gender', function ($user) {
+                    return $user->gender == 0 ? 'Perempuan' : 'Laki-Laki';
+                })
+                ->make(true);
+        }
+        return view('user.daftarPengguna');
     }
 
-    public function create() {
+    public function create()
+    {
         return view('user.registrasi');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'username' => ['required', 'string', 'max:100'],
+            'username' => ['required', 'string', 'max:100', 'unique:users'],
             'fullName' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults(),
+            'email' => ['email'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'address' => ['required', 'string', 'max:100'],
-            'birthdate' => ['required', 'date'],
-            'phoneNumber' => ['required', 'number', 'max:20'],
+            'birthdate' => ['required', 'date', 'before:today'],
+            'phoneNumber' => ['required', 'numeric', 'max:1000000000'],
             'religion' => ['required', 'string', 'max:20'],
-            'gender' => ['required', 'number', 'max:1'],
-        ],
+            'gender' => ['required', 'numeric', 'max:1'],
+        ], [
+            'username.required' =>  'Username harus diisi',
+            'username.unique' =>  'Username telah digunakan',
+            'birthdate.before' =>  'Tanggal lahir harus sebelum hari ini',
         ]);
 
         $user = User::create([
@@ -53,7 +68,8 @@ class UserController extends Controller
         return redirect('/user');
     }
 
-    public function show(User $user) {
+    public function show(User $user)
+    {
         return view('user.infoPengguna')->with('user', $user);
     }
 }

@@ -24,7 +24,7 @@
             
                         <!-- Jenis Koleksi -->
                         <div class="mt-4 mb-4">
-                            <x-input-label for="jenisKoleksi" :value="__('Jenis Koleksi')" />
+                            <x-input-label for="jenisKoleksi" :value="old('jenisKoleksi')" />
             
                             <input name="jenisKoleksi" id="book" value=1 type="radio" checked />
                             <label for="book">Buku</label>
@@ -51,6 +51,9 @@
                             <x-primary-button class="ml-4">
                                 {{ __('Create') }}
                             </x-primary-button>
+                            <x-secondary-button class="ml-4">
+                                {{ __('Reset') }}
+                            </x-secondary-button>
                         </div>
                     </form>
                 </div>
