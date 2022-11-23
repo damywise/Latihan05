@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/user/userRegistration', 'create')->name('user.userRegistration');
         Route::post('/user/userStore', 'store')->name('user.userStore');
         Route::get('/user/userView/{user}', 'show')->name('user.userView');
+        Route::post('/user/userUpdate', 'update')->name('user.userUpdate');
     });
 
     Route::controller(CollectionController::class)->group(function () {
@@ -40,6 +41,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/koleksi/koleksiTambah', 'create')->name('koleksi.koleksiTambah');
         Route::post('/koleksi/koleksiStore', 'store')->name('koleksi.koleksiStore');
         Route::get('/koleksi/koleksiView/{collection}', 'show')->name('koleksi.koleksiView');
+        Route::post('/koleksi/koleksiUpdate', 'update')->name('koleksi.koleksiUpdate');
     });
 });
 require __DIR__ . '/auth.php';

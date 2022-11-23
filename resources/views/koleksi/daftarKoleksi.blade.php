@@ -1,7 +1,7 @@
 <?php
 $headerClass = '';
 $rowClass = 'px-5 py-5 border-b border-gray-200 bg-white text-sm';
-$headers = ['Id', 'Nama Koleksi', 'Jenis Koleksi', 'Tanggal Dibuat', 'Jumlah Koleksi'];
+$headers = ['Id', 'Nama Koleksi', 'Jenis Koleksi', 'Tanggal Dibuat', 'Jumlah Koleksi', 'Action'];
 ?>
 
 <x-app-layout>
@@ -68,6 +68,10 @@ $headers = ['Id', 'Nama Koleksi', 'Jenis Koleksi', 'Tanggal Dibuat', 'Jumlah Kol
                     {
                         data: 'jumlahKoleksi',
                         name: 'jumlahKoleksi'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action'
                     },
                 ]
             });

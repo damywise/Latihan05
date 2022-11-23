@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Collection;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
 
@@ -23,6 +24,14 @@ class CollectionController extends Controller
                 })
                 ->editColumn('createdAt', function ($collection) {
                     return date('Y-m-d', strtotime($collection->createdAt ?? ''));
+                })
+                ->addColumn('action', function ($collection) {
+                    $html = '
+                    <a href="' . url('koleksi/koleksiView', $collection->id) . '"> 
+                        Edit 
+                    </a>
+                    ';
+                    return $html;
                 })
                 ->make(true);
         }
@@ -60,5 +69,22 @@ class CollectionController extends Controller
     public function show(Collection $collection)
     {
         return view('koleksi.infoKoleksi')->with('collection', $collection);
+    }
+
+    public function update(Request $request)
+    {
+        // dd($request);
+        $request->validate([
+            'jenisKoleksi' => ['required', 'numeric', 'max:3'],
+        ]);
+
+        $user = DB::table('Collections')
+            ->where('id', $request->id)
+            ->update([
+                'jenisKoleksi' => $request->jenisKoleksi,
+                'jumlahKoleksi' => $request->jumlahKoleksi,
+            ]);
+
+        return redirect('/koleksi');
     }
 }

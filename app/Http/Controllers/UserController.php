@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Yajra\DataTables\DataTables;
@@ -21,6 +22,15 @@ class UserController extends Controller
                 ->editColumn('gender', function ($user) {
                     return $user->gender == 0 ? 'Perempuan' : 'Laki-Laki';
                 })
+                ->addColumn('aksi', function ($user) {
+                    $html = '
+                    <a href="' . url('user/userView', $user->id) . '"> 
+                        Edit 
+                    </a>
+                    ';
+                    return $html;
+                })
+                ->rawColumns(['aksi'])
                 ->make(true);
         }
         return view('user.daftarPengguna');
@@ -71,5 +81,30 @@ class UserController extends Controller
     public function show(User $user)
     {
         return view('user.infoPengguna')->with('user', $user);
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'fullName' => ['required', 'string', 'max:100'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'address' => ['required', 'string', 'max:100'],
+            'phoneNumber' => ['required', 'numeric', 'max:1000000000'],
+            'religion' => ['required', 'string', 'max:20'],
+            'gender' => ['required', 'numeric', 'max:1'],
+        ]);
+
+        $user = DB::table('Users')
+            ->where('id', $request->id)
+            ->update([
+                'fullName' => $request->fullName,
+                'password' => Hash::make($request->password),
+                'address' => $request->address,
+                'phoneNumber' => $request->phoneNumber,
+                'religion' => $request->religion,
+                'gender' => $request->gender,
+            ]);
+
+        return redirect('/user');
     }
 }

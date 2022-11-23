@@ -2,7 +2,7 @@
 // $headerClass = 'px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider';
 $headerClass = '';
 $rowClass = 'px-5 py-5 border-b border-gray-200 bg-white text-sm';
-$headers = ['Id', 'Username', 'Full Name', 'Email', 'Alamat', 'No. Telepon', 'Tanggal Lahir', 'Agama', 'Jenis Kelamin'];
+$headers = ['Id', 'Username', 'Full Name', 'Email', 'Alamat', 'No. Telepon', 'Tanggal Lahir', 'Agama', 'Jenis Kelamin', 'Aksi'];
 ?>
 
 <x-app-layout>
@@ -85,6 +85,10 @@ $headers = ['Id', 'Username', 'Full Name', 'Email', 'Alamat', 'No. Telepon', 'Ta
                     {
                         data: 'gender',
                         name: 'Jenis Kelamin'
+                    },
+                    {
+                        data: 'aksi',
+                        name: 'Aksi'
                     },
                 ]
             });
