@@ -27,6 +27,9 @@
                     <x-nav-link :href="route('koleksi')" :active="request()->routeIs('koleksi')">
                         {{ __('Koleksi') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('transaksi')" :active="request()->routeIs('transaksi')">
+                        {{ __('Transaksi') }}
+                    </x-nav-link>
                 </div>
             </div>
 

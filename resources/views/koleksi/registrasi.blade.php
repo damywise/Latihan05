@@ -38,11 +38,11 @@
             
                         <!-- Jumlah Koleksi -->
                         <div>
-                            <x-input-label for="jumlahKoleksi" :value="__('Jumlah Koleksi')" />
+                            <x-input-label for="jumlahAwal" :value="__('Jumlah Koleksi')" />
             
-                            <x-text-input id="jumlahKoleksi" class="block mt-1 w-full" type="number" name="jumlahKoleksi" :value="old('jumlahKoleksi')" required autofocus />
+                            <x-text-input id="jumlahAwal" class="block mt-1 w-full" type="number" name="jumlahAwal" :value="old('jumlahAwal')" required autofocus />
             
-                            <x-input-error :messages="$errors->get('jumlahKoleksi')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('jumlahAwal')" class="mt-2" />
                         </div>
             
             

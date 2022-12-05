@@ -48,13 +48,15 @@ class CollectionController extends Controller
         // dd($request);
         $request->validate([
             'namaKoleksi' => ['required', 'string', 'max:100'],
-            'jumlahKoleksi' => ['required', 'numeric'],
+            'jumlahAwal' => ['required', 'numeric'],
             'jenisKoleksi' => ['required', 'numeric', 'max:3'],
         ]);
 
         $user = Collection::create([
             'namaKoleksi' => $request->namaKoleksi,
-            'jumlahKoleksi' => $request->jumlahKoleksi,
+            'jumlahAwal' => $request->jumlahAwal,
+            'jumlahSisa' => $request->jumlahAwal,
+            'jumlahKeluar' => 0,
             'jenisKoleksi' => $request->jenisKoleksi,
             'createdAt' => Date("Y-m-d", time()),
         ]);
@@ -82,7 +84,8 @@ class CollectionController extends Controller
             ->where('id', $request->id)
             ->update([
                 'jenisKoleksi' => $request->jenisKoleksi,
-                'jumlahKoleksi' => $request->jumlahKoleksi,
+                'jumlahSisa' => $request->jumlahSisa,
+                'jumlahKeluar' => $request->jumlahKeluar,
             ]);
 
         return redirect('/koleksi');

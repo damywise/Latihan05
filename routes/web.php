@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\DetailTransactionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +29,7 @@ Route::get('/halamanbaru', function () {
     return view('halamanbaru');
 })->middleware(['auth', 'verified'])->name('halamanbaru');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'verified')->group(function () {
     Route::controller(UserController::class)->group(function () {
         Route::get('/user', 'index')->name('user');
         Route::get('/user/userRegistration', 'create')->name('user.userRegistration');
@@ -42,6 +44,20 @@ Route::middleware('auth')->group(function () {
         Route::post('/koleksi/koleksiStore', 'store')->name('koleksi.koleksiStore');
         Route::get('/koleksi/koleksiView/{collection}', 'show')->name('koleksi.koleksiView');
         Route::post('/koleksi/koleksiUpdate', 'update')->name('koleksi.koleksiUpdate');
+    });
+
+    Route::controller(TransaksiController::class)->group(function () {
+        Route::get('/transaksi', 'index')->name('transaksi');
+        Route::get('/getAllTransactions', 'getAllTransactions');
+        Route::get('/transaksiTambah', 'create');
+        Route::post('/transaksiStore', 'store');
+        Route::get('/transaksiView/{transaction}', 'show');
+    });
+    
+    Route::controller(DetailTransactionController::class)->group(function () {
+        Route::get('/getAllDetailTransactions/{transactionId}', 'getAllDetailTransactions');
+        Route::get('/detailTransactionKembalikan/{detailTransactionId}', 'detailTransactionKembalikan');
+        Route::post('/detailTransactionUpdate', 'update');
     });
 });
 require __DIR__ . '/auth.php';

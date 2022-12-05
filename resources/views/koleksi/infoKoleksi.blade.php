@@ -46,13 +46,31 @@
                             <x-input-error :messages="$errors->get('jenisKoleksi')" class="mt-2" />
                         </div>
             
-                        <!-- Jumlah Koleksi -->
+                        <!-- Jumlah Awal -->
                         <div>
-                            <x-input-label for="jumlahKoleksi" :value="__('Jumlah Koleksi')" />
+                            <x-input-label for="jumlahAwal" :value="__('Jumlah Awal')" />
             
-                            <x-text-input id="jumlahKoleksi" class="block mt-1 w-full" type="number" name="jumlahKoleksi" value="{{$collection->jumlahKoleksi}}" required/>
+                            <x-text-input id="jumlahAwal" class="block mt-1 w-full bg-gray-300" type="number" name="jumlahAwal" value="{{$collection->jumlahAwal}}" readonly/>
             
-                            <x-input-error :messages="$errors->get('jumlahKoleksi')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('jumlahAwal')" class="mt-2" />
+                        </div>
+            
+                        <!-- Jumlah Sisa -->
+                        <div>
+                            <x-input-label for="jumlahSisa" :value="__('Jumlah Sisa')" />
+            
+                            <x-text-input id="jumlahSisa" class="block mt-1 w-full" type="number" name="jumlahSisa" value="{{$collection->jumlahSisa}}" required/>
+            
+                            <x-input-error :messages="$errors->get('jumlahSisa')" class="mt-2" />
+                        </div>
+            
+                        <!-- Jumlah Keluar -->
+                        <div>
+                            <x-input-label for="jumlahKeluar" :value="__('Jumlah Keluar')" />
+            
+                            <x-text-input id="jumlahKeluar" class="block mt-1 w-full" type="number" name="jumlahKeluar" value="{{$collection->jumlahKeluar}}" required/>
+            
+                            <x-input-error :messages="$errors->get('jumlahKeluar')" class="mt-2" />
                         </div>
             
             

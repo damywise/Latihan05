@@ -15,7 +15,9 @@ class Collection extends Model
         'namaKoleksi',
         'jenisKoleksi',
         'createdAt',
-        'jumlahKoleksi',
+        'jumlahAwal',
+        'jumlahSisa',
+        'jumlahKeluar',
     ];
 
 

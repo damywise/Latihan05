@@ -1,13 +1,13 @@
 <?php
 $headerClass = '';
 $rowClass = 'px-5 py-5 border-b border-gray-200 bg-white text-sm';
-$headers = ['Id', 'Nama Koleksi', 'Jenis Koleksi', 'Tanggal Dibuat', 'Jumlah Koleksi', 'Action'];
+$headers = ['Id', 'Koleksi', 'Tanggal Pinjam', 'Tanggal Kembali', 'Status', 'Action'];
 ?>
 
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Info Koleksi') }}
+            {{ __('Info Transaksi') }}
         </h2>
     </x-slot>
 
@@ -16,13 +16,23 @@ $headers = ['Id', 'Nama Koleksi', 'Jenis Koleksi', 'Tanggal Dibuat', 'Jumlah Kol
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200 overflow-x-auto">
 
-                    <a href="koleksi/koleksiTambah">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-5">
-                            Tambah Data
-                        </button>
-                    </a>
+                    <!-- Peminjam -->
+                    <div>
+                        <x-input-label for="peminjam" :value="__('Peminjam')" />
+        
+                        <x-text-input id="peminjam" class="block mt-1 w-full bg-gray-300" type="text" name="peminjam" value="{{$transactions->fullnamePeminjam}}"  readonly/>
 
-                    <table id="tableUserInfo" class="data-table min-w-full leading-normal">
+                    </div>
+
+                    <!-- Petugas -->
+                    <div class="mb-4">
+                        <x-input-label for="petugas" :value="__('Petugas')" />
+        
+                        <x-text-input id="petugas" class="block mt-1 w-full bg-gray-300" type="text" name="petugas" value="{{$transactions->fullnamePetugas}}"  readonly/>
+
+                    </div>
+
+                    <table id="tableTransaksiInfo" class="data-table min-w-full leading-normal">
                         <thead>
                             <tr>
                                 @foreach ($headers as $header)
@@ -48,30 +58,33 @@ $headers = ['Id', 'Nama Koleksi', 'Jenis Koleksi', 'Tanggal Dibuat', 'Jumlah Kol
             var table = $('.data-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('koleksi') }}",
+                ajax: '{{ url("/getAllDetailTransactions") }}'+"/"+{{ $transactions->id }},
+                destroy: true,
                 columns: [{
                         data: 'id',
                         name: 'id'
                     },
                     {
-                        data: 'namaKoleksi',
-                        name: 'namaKoleksi'
+                        data: 'koleksi',
+                        name: 'koleksi'
                     },
                     {
-                        data: 'jenisKoleksi',
-                        name: 'jenisKoleksi'
+                        data: 'tanggalPinjam',
+                        name: 'tanggalPinjam'
                     },
                     {
-                        data: 'createdAt',
-                        name: 'createdAt'
+                        data: 'tanggalKembali',
+                        name: 'tanggalKembali'
                     },
                     {
-                        data: 'jumlahSisa',
-                        name: 'jumlahSisa'
+                        data: 'status',
+                        name: 'status'
                     },
                     {
                         data: 'action',
-                        name: 'action'
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
                     },
                 ]
             });
